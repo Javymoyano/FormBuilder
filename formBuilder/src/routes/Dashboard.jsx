@@ -1,20 +1,20 @@
 import DashboardWrapper from "../components/DashboardWrapper";
-import { useForm } from "react-hook-form";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { db } from "../firebase/firebase";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-  setDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { addCollectionAndDocuments } from "../firebase/firebase";
+// import {
+//   getFirestore,
+//   collection,
+//   addDoc,
+//   getDoc,
+//   doc,
+//   getDocs,
+//   query,
+//   where,
+//   setDoc,
+//   deleteDoc,
+// } from "firebase/firestore";
 import styles from "../components/styles/dashboard.module.css";
 import Izq from "../components/images/flechablancaizq.png";
 import Der from "../components/images/flechablancader.png";
@@ -47,11 +47,6 @@ export default function Dashboard(second) {
       [name]: newValue,
     }));
   }
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
 
   function handleNext() {
     setPasoActual((prevPasoActual) => prevPasoActual + 1);
@@ -61,30 +56,26 @@ export default function Dashboard(second) {
     setPasoActual((prevPasoActual) => prevPasoActual - 1);
   }
 
-  function handleSubmit() {
-    const dbRef = firebase.database().ref("formulario");
-    dbRef.push(datosFormulario);
-    alert("Los datos del formulario han sido guardados.");
-  }
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setUser({ ...user, [name]: value });
-  // };
+  // function handleSubmit() {
+  //   const dbRef = firebase.database().ref("formulario");
+  //   dbRef.push(datosFormulario);
+  //   alert("Los datos del formulario han sido guardados.");
+  // }
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    addCollectionAndDocuments(datosFormulario.email, datosFormulario);
 
-    try {
-      await addDoc(collection(db, "formulario"), {
-        ...datosFormulario,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await addDoc(collection(db, "users"), {
+    //     ...datosFormulario,
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
     alert("Los Datos fueron ingresados satisfactoriamente");
-    navigate("/login");
-    //setUser("");
+    navigate(`/responses/${datosFormulario.email}`);
+
     console.log(datosFormulario);
     console.log(clickCheckbox);
   };
@@ -92,7 +83,7 @@ export default function Dashboard(second) {
     <DashboardWrapper>
       <div className={styles.container}>
         {pasoActual === 1 && (
-          <div>
+          <div className={styles.pass}>
             <label>Nombre completo</label>
             <input
               type="text"
@@ -100,13 +91,13 @@ export default function Dashboard(second) {
               value={datosFormulario.nombre}
               onChange={handleInputChange}
             />
-            <button onClick={handleNext}>
+            <button className={styles.button1} onClick={handleNext}>
               <img src={Der} alt="" />
             </button>
           </div>
         )}
         {pasoActual === 2 && (
-          <div>
+          <div className={styles.pass}>
             <label>Correo electrónico</label>
             <input
               type="email"
@@ -114,16 +105,16 @@ export default function Dashboard(second) {
               value={datosFormulario.email}
               onChange={handleInputChange}
             />
-            <button onClick={handleBack}>
+            <button className={styles.button1} onClick={handleBack}>
               <img src={Izq} alt="atras" />
             </button>
-            <button onClick={handleNext}>
+            <button className={styles.button1} onClick={handleNext}>
               <img src={Der} alt="" />
             </button>
           </div>
         )}
         {pasoActual === 3 && (
-          <div>
+          <div className={styles.pass}>
             <label>Fecha de nacimiento</label>
             <input
               type="date"
@@ -131,16 +122,16 @@ export default function Dashboard(second) {
               value={datosFormulario.telefono}
               onChange={handleInputChange}
             />
-            <button onClick={handleBack}>
+            <button className={styles.button1} onClick={handleBack}>
               <img src={Izq} alt="atras" />
             </button>
-            <button onClick={handleNext}>
+            <button className={styles.button1} onClick={handleNext}>
               <img src={Der} alt="" />
             </button>
           </div>
         )}
         {pasoActual === 4 && (
-          <div>
+          <div className={styles.pass}>
             <label>¿Cuál es tu país de origen?</label>
             <select
               placeholder="Elija un País"
@@ -158,22 +149,17 @@ export default function Dashboard(second) {
               // <option value={datosFormulario.venezuela}>Venezuela</option>
               //
             </select>
-            {/* <input
-              type="date"
-              name="birth_date"
-              value={datosFormulario.telefono}
-              onChange={handleInputChange}
-            /> */}
-            <button onClick={handleBack}>
+
+            <button className={styles.button1} onClick={handleBack}>
               <img src={Izq} alt="atras" />
             </button>
-            <button onClick={handleNext}>
+            <button className={styles.button1} onClick={handleNext}>
               <img src={Der} alt="" />
             </button>
           </div>
         )}
         {pasoActual === 5 && (
-          <div>
+          <div className={styles.pass}>
             <label>¿Acepta los términos y condiciones?</label>
 
             <input
@@ -182,33 +168,15 @@ export default function Dashboard(second) {
               checked={datosFormulario.terms_and_conditions}
               onChange={handleInputChange}
             />
-            <button onClick={handleBack}>
+            <button className={styles.button1} onClick={handleBack}>
               <img src={Izq} alt="atras" />
             </button>
-            <button onClick={onSubmit} type="submit">
+            <button className={styles.button1} onClick={onSubmit} type="submit">
               <img src={Enviar} alt="" />
             </button>
           </div>
         )}
       </div>
-
-      {/* <div>Estoy en Dashboard</div>
-      <div>
-        <form onSubmit={onSubmit}>
-          <div>
-            <label>Nombre completo</label>
-            <input
-              onChange={handleInputChange}
-              value={user.full_name}
-              type="text"
-              name="full_name"
-              placeholder="Ingresa tu nombre completo"
-            />
-          </div>
-
-          <input type="submit" value="Siguiente" />
-        </form>
-      </div> */}
     </DashboardWrapper>
   );
 }

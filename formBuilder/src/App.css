@@ -1,12 +1,12 @@
-#root {
+/* #root {
   max-width: 100vw;
   margin: 0 auto;
   padding: 0rem;
   text-align: center;
   box-sizing: border-box;
-}
+} */
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -40,4 +40,4 @@
 
 .read-the-docs {
   color: #888;
-}
+} */

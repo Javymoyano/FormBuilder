@@ -1,11 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: auto;
+  background: url("../images/fondoNegroFuccia.png") no-repeat;
+
   padding: 0;
   margin: 0;
+  background-size: cover;
 }
 
 /* @media (max-width: 768px) {
@@ -44,10 +53,12 @@ select {
   font-weight: 700;
   display: block;
   text-align: left;
-  border: none;
+  border: 0;
+  outline: none;
   border-bottom: 2px solid #f90a91;
   width: 100%;
   background-color: transparent;
+
   margin-left: 2.5em;
 }
 
@@ -56,38 +67,52 @@ input:hover {
   background-color: transparent;
   outline: none;
 }
-input:focus {
-  border-bottom-color: white;
+input :focus {
+  background-color: transparent;
+  outline: none;
 }
 
-button {
-  margin-top: 1rem;
+/* .pass {
   display: inline-block;
+  justify-content: space-between;
+  margin: 10px;
+} */
+
+.button1 {
+  margin-top: 3rem;
+  margin-right: 3rem;
+  display: inline-block;
+  justify-content: space-between;
+
   text-align: center;
   justify-content: center;
   width: 4rem;
   height: 4rem;
-  margin-left: 5%;
-  padding: 6px;
+  position: relative;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   border-radius: 50%;
   border-color: #f90a91;
   background-color: transparent;
-  color: #ffffff;
-  font-size: larger;
 }
-button:hover {
+
+.container .pass .button1:hover {
   border-color: #f90a91;
   background-color: #f90a91;
 }
-
-boton img {
-  padding: 2px;
+.button1 img {
+  height: 1.5rem;
+  width: auto;
+}
+/* .button1 img {
+  padding: 2px 4px;
   width: 30px;
   height: 30px;
   text-align: center;
   justify-self: center;
-}
+} */
 
 /* button[type="submit"] {
   margin-top: 1rem;

@@ -34,10 +34,19 @@ export default function Form() {
     alert("Los datos del formulario han sido guardados.");
   }
 
-  const {
-    formState: { errors },
-  } = useForm();
+  function validar(input) {
+    let errors = {};
+    if (!input.nombre) errors.nombre = "Por favor introduzca un Nombre";
 
+    if (!input.email) errors.email = "Debe introducir una correo válido";
+    if (!input.genres) errors.genres = "Debe seleccionar el Género";
+    if (!input.description)
+      errors.description = "Por favor introduzca la Descripción";
+    if (!input.platforms)
+      errors.platforms = "Por favor introduzca la Plataforma";
+
+    return errors;
+  }
   return (
     <div>
       {pasoActual === 1 && (
@@ -50,9 +59,10 @@ export default function Form() {
             onChange={handleInputChange}
             required
           />
-          {errors.nombre?.type === "required" &&
-            alert("El campo Nombre es requerido")}
-          <button onClick={handleNext}>Siguiente</button>
+          {errors.nombre}
+          <button onClick={handleNext} disabled={errors}>
+            Siguiente
+          </button>
         </div>
       )}
       {pasoActual === 2 && (

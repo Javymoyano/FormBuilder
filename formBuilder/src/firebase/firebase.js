@@ -5,25 +5,8 @@ import { initializeApp } from "firebase/app";
 // dotenv.config();
 
 import { getAuth } from "firebase/auth";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  getBytes,
-} from "firebase/storage";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-  setDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   // apiKey: process.env.REACT_APP_APIKEY,
@@ -46,5 +29,45 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const db = getFirestore();
 const storage = getStorage(app);
+
+export const addCollectionAndDocuments = async (user, responses) => {
+  const userRef = doc(db, "users", user);
+  const userSnapshot = await getDoc(userRef);
+  if (!userSnapshot.exists()) {
+    try {
+      await setDoc(userRef, responses);
+      console.log("done!");
+    } catch (error) {
+      console.log("error fatal");
+    }
+  }
+  console.log(userRef);
+};
+
+export const getDocument = async (user) => {
+  const collectionRef = doc(db, "users", user);
+  console.log(collectionRef);
+  const querySnapshot = await getDoc(collectionRef);
+  if (querySnapshot) {
+    try {
+      return querySnapshot.data();
+    } catch (error) {
+      console.log("error fatal");
+    }
+
+    //console.log("data documento", querySnapshot);
+  }
+};
+
+// export const getDocumentoPorId = async (user) => {
+//   const docRef = doc(db, "users", user);
+//   const docSnap = await getDoc(docRef);
+//   if (docSnap.exists()) {
+//     console.log("ID del documento:", docSnap.id);
+//     console.log("Datos del documento:", docSnap.data());
+//   } else {
+//     console.log("No se encontró el documento");
+//   }
+// };

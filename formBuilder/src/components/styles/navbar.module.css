@@ -1,32 +1,32 @@
-.container {
+/* .container {
   background: url("../images/fondoNegroFuccia.png") no-repeat center center
     fixed;
   background-size: cover;
   height: 100vh;
-  width: 100vw;
-}
+  width: 100%;
+} */
 
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(8, 8, 8, 0.5);
-  backdrop-filter: blur(10px);
+  background-color: #f10c6c;
+  color: #ffffff;
   height: 50px;
 }
 
 .link {
-  color: #f10c6c;
+  color: #ffffff;
   text-decoration: none;
   margin-right: 5em;
 }
 
 .link:hover {
   padding: 0.5rem 1rem;
-  border: solid #333 thin;
+  border: solid #f172a7 thin;
   border-radius: 15px;
-  background-color: #333;
-  color: #ffffff;
+  background-color: #f172a7;
+  color: #666363;
   font-size: 1rem;
   text-align: center;
   text-decoration: none;
@@ -36,7 +36,7 @@
 }
 
 .form {
-  color: #f10c6c;
+  color: white;
   font-weight: bold;
 
   margin-left: 5em;

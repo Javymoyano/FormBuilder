@@ -9,7 +9,7 @@ export default function DashboardWrapper({ children }) {
         <div className={styles.form}>COMPLETA TU FORMULARIO</div>
 
         <Link className={styles.link} to="/signout">
-          Signout
+          SIGNOUT
         </Link>
       </nav>
       <div>{children}</div>
