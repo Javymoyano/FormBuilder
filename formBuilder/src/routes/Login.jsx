@@ -20,7 +20,7 @@ export default function Login(second) {
       console.log(user.displayName);
     } else {
       //todo: Si no esta registrado redirigir a choose username
-      navigate("/choose-username");
+      navigate("/dashboard");
       console.log("Ese usuario no esta autenticado...");
     }
   }

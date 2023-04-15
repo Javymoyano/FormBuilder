@@ -119,7 +119,7 @@ export default function Dashboard(second) {
             <input
               type="date"
               name="birth_date"
-              value={datosFormulario.telefono}
+              value={datosFormulario.birth_date}
               onChange={handleInputChange}
             />
             <button className={styles.button1} onClick={handleBack}>
